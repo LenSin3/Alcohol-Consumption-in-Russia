@@ -226,7 +226,6 @@ def cat_plots(df_melt, **kwargs):
     ----------
     df_melt :
         
-    *args :
         
     **kwargs :
         
@@ -247,17 +246,6 @@ def cat_plots(df_melt, **kwargs):
         plt.title('Distribution of Mean Sales per Capita by Beverage')
         # plt.savefig("images/Distribution Plot of Sales by Beverage.png")
         plt.show()
-    # elif n and plot_type == 'barplot':
-    #     sort_df = df_melt.sort_values(by = ['Sales per Capita'], ascending = False)
-    #     top_n = sort_df.iloc[:n, :]
-    #     fig, ax = plt.subplots()
-    #     fig.set_size_inches(15, 10)
-    #     sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5})
-    #     sns.barplot(x = 'Sales per Capita', y = 'region', hue = 'beverages', data = top_n)
-    #     sns.despine(offset = 10, trim = True)
-    #     plt.title('Top {} Regions by Mean Sales per Capita'.format(n))
-    #     # plt.savefig("images/top_{}_regions.png".format(n))
-    #     plt.show()
 
     elif n and beverage and plot_type == 'barplot':
         sort_df_bev = df_melt.loc[df_melt['beverages'] == beverage]
