@@ -210,6 +210,7 @@ def plot_timeseries(df_melt, *args):
                 # plt.savefig("images/{}_vs_allbevs.png".format(region))
                 plt.show()
                 # plot time series for a region and a beverage
+            else:
                 for beverage in df_melt['beverages'].unique().tolist():
                     if beverage in args:
                         df_plot = df_melt.loc[(df_melt['region'] == region) | (df_melt['beverages'] == beverage)]    
