@@ -6,6 +6,17 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics.pairwise import cosine_similarity
 
 def read_data(path_str: str):
+    """
+
+    Parameters
+    ----------
+    path_str: str :
+        
+
+    Returns
+    -------
+
+    """
     if isinstance(path_str, str):
         df = pd.read_csv(path_str)
         # make a copy of dataframe
@@ -64,6 +75,17 @@ def read_data(path_str: str):
     return df_final, df_cols, df_nulls
 
 def plot_nulls(df_nulls):
+    """
+
+    Parameters
+    ----------
+    df_nulls :
+        
+
+    Returns
+    -------
+
+    """
     if isinstance(df_nulls, pd.DataFrame):
         expected_cols = ['Feature', 'DataType', 'CountOfNonNulls', 'CountOfNulls',\
                                                 'PercentOfNullsIinColumn', 'PercentOfNullsInData']
@@ -90,6 +112,17 @@ def plot_nulls(df_nulls):
         raise Exception("Object provided is not a valid DataFrame!")
 
 def clean_and_transform(df):
+    """
+
+    Parameters
+    ----------
+    df :
+        
+
+    Returns
+    -------
+
+    """
     if isinstance(df, pd.DataFrame):
         # loop through columns and fillna with mean values
         # strip leading and trailing spaces in text data
@@ -108,7 +141,35 @@ def clean_and_transform(df):
 
     return df
 
+def group_melt(df, *args):
+    # aggregate data by year and region
+    df_grp = df.groupby(args, as_index = False)[['wine', 'beer', 'vodka', 'champagne', 'brandy']].mean()
+     # melt data frame - wide to long
+    df_melt = pd.melt(df_grp, id_vars = args, value_vars = ['wine', 'beer', 'vodka', 'champagne', 'brandy'],\
+                         var_name = 'beverages', value_name = 'Sales per Capita')
+    df_melt['year'] = df_melt['year'].astype('int64')
+
+    return df_grp, df_melt
+
+
+
+
+
+
 def plot_timeseries(df_melt, *args):
+    """
+
+    Parameters
+    ----------
+    df_melt :
+        
+    *args :
+        
+
+    Returns
+    -------
+
+    """
     # plot time series for all regions and all beverages
     if 'all regions' in args and 'all beverages' in args:
         fig, ax = plt.subplots()
@@ -159,6 +220,21 @@ def plot_timeseries(df_melt, *args):
 
 
 def cat_plots(df_melt, *args, **kwargs):
+    """
+
+    Parameters
+    ----------
+    df_melt :
+        
+    *args :
+        
+    **kwargs :
+        
+
+    Returns
+    -------
+
+    """
     n = kwargs.get('n', None)
     if 'boxplot' in args:
         fig, ax = plt.subplots()
@@ -183,6 +259,17 @@ def cat_plots(df_melt, *args, **kwargs):
             plt.show()
 
 def corr_heatmap(df):
+    """
+
+    Parameters
+    ----------
+    df :
+        
+
+    Returns
+    -------
+
+    """
     fig, ax = plt.subplots()
     fig.set_size_inches(15, 8)
     mask = np.triu(np.ones_like(df.corr(), dtype = bool))
@@ -195,6 +282,17 @@ def corr_heatmap(df):
 
 
 def preprocess_data(df):
+    """
+
+    Parameters
+    ----------
+    df :
+        
+
+    Returns
+    -------
+
+    """
     # instantiate MinMaxScaler
     scaler = MinMaxScaler(feature_range = (0, 1))
         
@@ -219,6 +317,23 @@ def preprocess_data(df):
     return df_grp, cols_of_df, df_nums, df_num_cols, cos_sim
 
 def recommend_regions(df_grp, region, n, cos_sim):
+    """
+
+    Parameters
+    ----------
+    df_grp :
+        
+    region :
+        
+    n :
+        
+    cos_sim :
+        
+
+    Returns
+    -------
+
+    """
 
     indices = pd.Series(df_grp.index, index = df_grp['region'])
     indices = indices.drop_duplicates()
