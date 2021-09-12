@@ -259,18 +259,20 @@ def cat_plots(df_melt, *args, **kwargs):
             # plt.savefig("images/top_{}_regions.png".format(n))
             plt.show()
 
-        elif n | beverage:
-            sort_df_bev = df_melt.loc[df_melt['beverages'] == beverage]
-            sort_df = sort_df_bev.sort_values(by = ['Sales per Capita'], ascending = False)
-            top_n = sort_df.iloc[:n, :]
-            fig, ax = plt.subplots()
-            fig.set_size_inches(15, 10)
-            sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5})
-            sns.barplot(x = 'Sales per Capita', y = 'region', data = top_n)
-            sns.despine(offset = 10, trim = True)
-            plt.title('Top {} Regions by Mean Sales per Capita of {}'.format(n, beverage))
-            # plt.savefig("images/top_{}_regions.png".format(n))
-            plt.show()
+        else:
+            if n:
+                if beverage:
+                    sort_df_bev = df_melt.loc[df_melt['beverages'] == beverage]
+                    sort_df = sort_df_bev.sort_values(by = ['Sales per Capita'], ascending = False)
+                    top_n = sort_df.iloc[:n, :]
+                    fig, ax = plt.subplots()
+                    fig.set_size_inches(15, 10)
+                    sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5})
+                    sns.barplot(x = 'Sales per Capita', y = 'region', data = top_n)
+                    sns.despine(offset = 10, trim = True)
+                    plt.title('Top {} Regions by Mean Sales per Capita of {}'.format(n, beverage))
+                    # plt.savefig("images/top_{}_regions.png".format(n))
+                    plt.show()
 
 
 def corr_heatmap(df):
