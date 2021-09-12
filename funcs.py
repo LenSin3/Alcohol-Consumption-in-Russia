@@ -259,7 +259,7 @@ def cat_plots(df_melt, *args, **kwargs):
             # plt.savefig("images/top_{}_regions.png".format(n))
             plt.show()
 
-        else:
+        elif n | beverage:
             sort_df_bev = df_melt.loc[df_melt['beverages'] == beverage]
             sort_df = sort_df_bev.sort_values(by = ['Sales per Capita'], ascending = False)
             top_n = sort_df.iloc[:n, :]
