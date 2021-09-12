@@ -141,11 +141,13 @@ def clean_and_transform(df):
 
     return df
 
-def group_melt(df, *args):
+def group_melt(df, **kwargs):
+    year = kwargs.get('year', None)
+    region = kwargs.get('region', None)
     # aggregate data by year and region
-    df_grp = df.groupby(list(args), as_index = False)[['wine', 'beer', 'vodka', 'champagne', 'brandy']].mean()
+    df_grp = df.groupby([year, region], as_index = False)[['wine', 'beer', 'vodka', 'champagne', 'brandy']].mean()
      # melt data frame - wide to long
-    df_melt = pd.melt(df_grp, id_vars = args, value_vars = ['wine', 'beer', 'vodka', 'champagne', 'brandy'],\
+    df_melt = pd.melt(df_grp, id_vars = [year, region], value_vars = ['wine', 'beer', 'vodka', 'champagne', 'brandy'],\
                          var_name = 'beverages', value_name = 'Sales per Capita')
     df_melt['year'] = df_melt['year'].astype('int64')
 
