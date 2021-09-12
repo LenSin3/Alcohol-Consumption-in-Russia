@@ -105,6 +105,7 @@ def plot_nulls(df_nulls):
                 sns.barplot(x = 'CountOfNulls', y = 'Feature' , data = null_df)
                 plt.setp(ax.get_xticklabels(), rotation=90)
                 plt.title('Count of Null Values in Dataset')
+                plt.savefig('images/nullcount.png')
                 plt.show()
         else:
             raise Exception("DataFrame columns should contain: \n".format(expected_cols))
@@ -206,19 +207,19 @@ def plot_timeseries(df_melt, *args):
                 sns.lineplot(data = df_plot, x = 'year', y = 'Sales per Capita', hue = 'beverages',\
                             style = 'beverages', markers = True)
                 plt.title("Time Series of Mean Sales per Capita of all Beverages in {}".format(region))
-                plt.savefig("images/{}_vs_allbevs.png".format(region.strip()))
+                plt.savefig("images/{}_vs_allbevs.png".format(region))
                 plt.show()
             # plot time series for a region and a beverage
             for beverage in df_melt['beverages'].unique().tolist():
                 if beverage in args:
-                    df_plot = df_melt.loc[(df_melt['region'] == region) & (df_melt['beverages'] == beverage)]    
+                    df_plot = df_melt.loc[(df_melt['region'] == region) | (df_melt['beverages'] == beverage)]    
                     fig, ax = plt.subplots()
                     fig.set_size_inches(15, 10)
                     sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5})
                     sns.lineplot(data = df_plot, x = 'year', y = 'Sales per Capita', hue = 'beverages',\
                                 style = 'beverages', markers = False)
                     plt.title("Time Series of Mean Sales per Capita of {} in {}".format(beverage, region))
-                    plt.savefig("images/{}_{}.png".format(region.strip(), beverage.strip()))
+                    plt.savefig("images/{}_{}.png".format(region, beverage))
                     plt.show()
                 # plot time series for all region and a beverage
                 elif 'all regions' in args:
@@ -229,7 +230,7 @@ def plot_timeseries(df_melt, *args):
                     sns.lineplot(data = df_plot, x = 'year', y = 'Sales per Capita', hue = 'beverages',\
                                 style = 'beverages', markers = False)
                     plt.title("Time Series of Mean Sales per Capita of {} in all regions".format(beverage))
-                    plt.savefig("images/{}_vs_allregions.png".format(beverage.strip()))
+                    plt.savefig("images/{}_vs_allregions.png".format(beverage))
                     plt.show()
 
 
