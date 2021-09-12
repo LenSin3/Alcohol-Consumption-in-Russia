@@ -144,13 +144,25 @@ def clean_and_transform(df):
 def group_melt(df, **kwargs):
     year = kwargs.get('year', None)
     region = kwargs.get('region', None)
-    # aggregate data by year and region
-    df_grp = df.groupby([year, region], as_index = False)[['wine', 'beer', 'vodka', 'champagne', 'brandy']].mean()
-     # melt data frame - wide to long
-    df_melt = pd.melt(df_grp, id_vars = [year, region], value_vars = ['wine', 'beer', 'vodka', 'champagne', 'brandy'],\
-                         var_name = 'beverages', value_name = 'Sales per Capita')
-    df_melt['year'] = df_melt['year'].astype('int64')
-
+    if year and region:
+        # aggregate data by year and region
+        df_grp = df.groupby([year, region], as_index = False)[['wine', 'beer', 'vodka', 'champagne', 'brandy']].mean()
+        # melt data frame - wide to long
+        df_melt = pd.melt(df_grp, id_vars = [year, region], value_vars = ['wine', 'beer', 'vodka', 'champagne', 'brandy'],\
+                            var_name = 'beverages', value_name = 'Sales per Capita')
+    elif year:
+        # aggregate data by year and region
+        df_grp = df.groupby(year, as_index = False)[['wine', 'beer', 'vodka', 'champagne', 'brandy']].mean()
+        # melt data frame - wide to long
+        df_melt = pd.melt(df_grp, id_vars = year, value_vars = ['wine', 'beer', 'vodka', 'champagne', 'brandy'],\
+                            var_name = 'beverages', value_name = 'Sales per Capita')
+        
+    elif region:
+        # aggregate data by year and region
+        df_grp = df.groupby(region, as_index = False)[['wine', 'beer', 'vodka', 'champagne', 'brandy']].mean()
+        # melt data frame - wide to long
+        df_melt = pd.melt(df_grp, id_vars = region, value_vars = ['wine', 'beer', 'vodka', 'champagne', 'brandy'],\
+                            var_name = 'beverages', value_name = 'Sales per Capita')
     return df_grp, df_melt
 
 
