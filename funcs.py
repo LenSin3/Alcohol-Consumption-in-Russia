@@ -257,7 +257,7 @@ def cat_plots(df_melt, *args, **kwargs):
         plt.title('Top {} Regions by Mean Sales per Capita'.format(n))
         # plt.savefig("images/top_{}_regions.png".format(n))
         plt.show()
-    elif (n and beverage) and 'barplot' in args:
+    elif n and beverage and 'barplot' in args:
         sort_df_bev = df_melt.loc[df_melt['beverages'] == beverage]
         sort_df = sort_df_bev.sort_values(by = ['Sales per Capita'], ascending = False)
         top_n = sort_df.iloc[:n, :]
