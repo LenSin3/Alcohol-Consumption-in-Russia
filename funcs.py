@@ -219,96 +219,6 @@ def plot_timeseries(df_melt, **kwargs):
         # plt.savefig("images/{}_{}.png".format(region, beverage))
         plt.show()
 
-
-    
-    # # plot time series for all regions and all beverages
-    # if 'all regions' in args and 'all beverages' in args:
-    #     fig, ax = plt.subplots()
-    #     fig.set_size_inches(15, 10)
-    #     sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5})
-    #     sns.lineplot(data = df_melt, x = 'year', y = 'Sales per Capita', hue = 'beverages',\
-    #                  style = 'beverages', markers = True)
-    #     plt.title("Time Series of Mean Sales per Capita for all beverages")
-    #     # plt.savefig("images/{}_{}_regions.png".format('allregions', 'allbeve'))
-    #     plt.show()
-    
-    # else:
-    #     for region in df_melt['region'].unique().tolist():
-    #         # plot time series for a region and all beverages
-    #         if region in args and 'all beverages' in args:
-    #             df_plot = df_melt.loc[df_melt['region'] == region]    
-    #             fig, ax = plt.subplots()
-    #             fig.set_size_inches(15, 10)
-    #             sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5})
-    #             sns.lineplot(data = df_plot, x = 'year', y = 'Sales per Capita', hue = 'beverages',\
-    #                          style = 'beverages', markers = True)
-    #             plt.title("Time Series of Mean Sales per Capita of all Beverages in {}".format(region))
-    #             # plt.savefig("images/{}_vs_allbevs.png".format(region))
-    #             plt.show()
-    #             # plot time series for a region and a beverage
-    #         else:
-    #             for beverage in df_melt['beverages'].unique().tolist():
-    #                 if beverage in args:
-    #                     df_plot = df_melt.loc[(df_melt['region'] == region) | (df_melt['beverages'] == beverage)]    
-    #                     fig, ax = plt.subplots()
-    #                     fig.set_size_inches(15, 10)
-    #                     sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5})
-    #                     sns.lineplot(data = df_plot, x = 'year', y = 'Sales per Capita', hue = 'beverages',\
-    #                                 style = 'beverages', markers = False)
-    #                     plt.title("Time Series of Mean Sales per Capita of {} in {}".format(beverage, region))
-    #                     # plt.savefig("images/{}_{}.png".format(region, beverage))
-    #                     plt.show()
-    #                 # plot time series for all region and a beverage
-    #                 elif 'all regions' in args:
-    #                     df_plot = df_melt.loc[df_melt['beverages'] == beverage]    
-    #                     fig, ax = plt.subplots()
-    #                     fig.set_size_inches(15, 10)
-    #                     sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5})
-    #                     sns.lineplot(data = df_plot, x = 'year', y = 'Sales per Capita', hue = 'beverages',\
-    #                                 style = 'beverages', markers = False)
-    #                     plt.title("Time Series of Mean Sales per Capita of {} in all regions".format(beverage))
-    #                     # plt.savefig("images/{}_vs_allregions.png".format(beverage))
-    #                     plt.show()
-
-        # for region in df_melt['region'].unique().tolist():
-        #     for beverage in df_melt['beverages'].unique().tolist():
-        #         # plot time series for a region and all beverages
-        #         if region in args and 'all beverages' in args:
-        #             df_plot = df_melt.loc[df_melt['region'] == region]    
-        #             fig, ax = plt.subplots()
-        #             fig.set_size_inches(15, 10)
-        #             sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5})
-        #             sns.lineplot(data = df_plot, x = 'year', y = 'Sales per Capita', hue = 'beverages',\
-        #                         style = 'beverages', markers = True)
-        #             plt.title("Time Series of Mean Sales per Capita of all Beverages in {}".format(region))
-        #             plt.savefig("images/{}_vs_allbevs.png".format(region))
-        #             plt.show()
-        #         # plot time series for a region and a beverage
-        #         elif beverage in args:
-        #             df_plot = df_melt.loc[(df_melt['region'] == region) | (df_melt['beverages'] == beverage)]    
-        #             fig, ax = plt.subplots()
-        #             fig.set_size_inches(15, 10)
-        #             sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5})
-        #             sns.lineplot(data = df_plot, x = 'year', y = 'Sales per Capita', hue = 'beverages',\
-        #                         style = 'beverages', markers = False)
-        #             plt.title("Time Series of Mean Sales per Capita of {} in {}".format(beverage, region))
-        #             plt.savefig("images/{}_{}.png".format(region, beverage))
-        #             plt.show()
-        #         # plot time series for all region and a beverage
-        #         elif 'all regions' in args:
-        #             df_plot = df_melt.loc[df_melt['beverages'] == beverage]    
-        #             fig, ax = plt.subplots()
-        #             fig.set_size_inches(15, 10)
-        #             sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5})
-        #             sns.lineplot(data = df_plot, x = 'year', y = 'Sales per Capita', hue = 'beverages',\
-        #                         style = 'beverages', markers = False)
-        #             plt.title("Time Series of Mean Sales per Capita of {} in all regions".format(beverage))
-        #             plt.savefig("images/{}_vs_allregions.png".format(beverage))
-        #             plt.show()
-
-
-
-
 def cat_plots(df_melt, *args, **kwargs):
     """
 
@@ -335,18 +245,19 @@ def cat_plots(df_melt, *args, **kwargs):
         plt.title('Distribution of Mean Sales per Capita by Beverage')
         # plt.savefig("images/Distribution Plot of Sales by Beverage.png")
         plt.show()
-    for beverage in df_melt['beverages'].unique().tolist():
-        if n and beverage in args:
-            sort_df = df_melt.sort_values(by = ['Sales per Capita'], ascending = False)
-            top_n = sort_df.iloc[:n, :]
-            fig, ax = plt.subplots()
-            fig.set_size_inches(15, 10)
-            sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5})
-            sns.barplot(x = 'Sales per Capita', y = 'region', hue = 'beverages', data = top_n)
-            sns.despine(offset = 10, trim = True)
-            plt.title('Top {} Regions by Mean Sales per Capita'.format(n))
-            # plt.savefig("images/top_{}_regions.png".format(n))
-            plt.show()
+    elif 'barplot' in args:
+        for beverage in df_melt['beverages'].unique().tolist():
+            if n and beverage in args:
+                sort_df = df_melt.sort_values(by = ['Sales per Capita'], ascending = False)
+                top_n = sort_df.iloc[:n, :]
+                fig, ax = plt.subplots()
+                fig.set_size_inches(15, 10)
+                sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5})
+                sns.barplot(x = 'Sales per Capita', y = 'region', hue = 'beverages', data = top_n)
+                sns.despine(offset = 10, trim = True)
+                plt.title('Top {} Regions by Mean Sales per Capita'.format(n))
+                # plt.savefig("images/top_{}_regions.png".format(n))
+                plt.show()
 
 def corr_heatmap(df):
     """
