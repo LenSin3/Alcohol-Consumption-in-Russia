@@ -212,7 +212,7 @@ def plot_timeseries(df_melt, *args):
                 # plot time series for a region and a beverage
                 for beverage in df_melt['beverages'].unique().tolist():
                     if beverage in args:
-                        df_plot = df_melt.loc[(df_melt['region'] == region) & (df_melt['beverages'] == beverage)]    
+                        df_plot = df_melt.loc[(df_melt['region'] == region) | (df_melt['beverages'] == beverage)]    
                         fig, ax = plt.subplots()
                         fig.set_size_inches(15, 10)
                         sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5})
@@ -229,8 +229,8 @@ def plot_timeseries(df_melt, *args):
                         sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5})
                         sns.lineplot(data = df_plot, x = 'year', y = 'Sales per Capita', hue = 'beverages',\
                                     style = 'beverages', markers = False)
-                        # plt.title("Time Series of Mean Sales per Capita of {} in all regions".format(beverage))
-                        plt.savefig("images/{}_vs_allregions.png".format(beverage))
+                        plt.title("Time Series of Mean Sales per Capita of {} in all regions".format(beverage))
+                        # plt.savefig("images/{}_vs_allregions.png".format(beverage))
                         plt.show()
 
         # for region in df_melt['region'].unique().tolist():
