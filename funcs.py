@@ -214,7 +214,7 @@ def plot_timeseries(df_melt, **kwargs):
         plt.show()
     
     elif region != 'all regions' and beverage != 'all beverages':
-        df_plot = df_melt.loc[(df_melt['region'] == region) | (df_melt['beverages'] == beverage)]    
+        df_plot = df_melt.loc[(df_melt['region'] == region) & (df_melt['beverages'] == beverage)]    
         fig, ax = plt.subplots()
         fig.set_size_inches(15, 10)
         sns.set_context('poster', font_scale = 0.8, rc = {'grid.linewidth': 0.5, "font.size":20,"axes.titlesize":20,"axes.labelsize":20})
