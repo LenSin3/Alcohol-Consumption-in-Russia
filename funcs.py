@@ -125,21 +125,26 @@ def clean_and_transform(df):
 
     """
     if isinstance(df, pd.DataFrame):
+        
         # loop through columns and fillna with mean values
         # strip leading and trailing spaces in text data
+        
         cols = df.columns.tolist()
         for col in cols:
             if df[col].isna().sum() == 0:
                 pass
             elif df[col].isna().sum() > 0:
-                if df[col].dtypes == 'int64' or df[col].dtypes == 'int32' or df[col].dtypes == 'float64':
+                if col == 'year':
+                    df[col] = df[col].fillna(method = 'ffill')
+                elif df[col].dtypes == 'int64' or df[col].dtypes == 'int32' or df[col].dtypes == 'float64':
                     df[col] = df[col].fillna(df[col].mean())
                 elif df[col].dtypes == 'object':
                     df[col] = df[col].fillna(df[col].mode())
                     df[col] = df[col].apply(lambda x: x.strip())
     else:
         raise Exception("Object provided is not a valid DataFrame!")
-
+    # convert year to datatime    
+    df['year'] = pd.to_datetime(df['year'], format = '%Y')
     return df
 
 def group_melt(df, **kwargs):
