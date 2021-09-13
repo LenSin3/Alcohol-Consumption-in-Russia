@@ -101,9 +101,9 @@ def plot_nulls(df_nulls):
                 fig, ax = plt.subplots()
                 # the size of A4 paper lanscape
                 fig.set_size_inches(12, 15)
-                sns.set_context("poster", font_scale = .6, rc={"grid.linewidth": 0.6})
-                sns.barplot(x = 'CountOfNulls', y = 'Feature' , data = null_df)
-                plt.setp(ax.get_xticklabels(), rotation=90, fontsize = 10)
+                sns.set_context("poster", font_scale = .6, rc={"grid.linewidth": 0.6, "font.size":20, "axes.titlesize":20, "axes.labelsize":20})
+                sns.barplot(x = 'CountOfNulls', y = 'Feature' , data = null_df.sort_values(by = 'CountOfNulls', ascending=False))
+                plt.setp(ax.get_xticklabels(), rotation=90)
                 plt.title('Count of Null Values in Dataset')
                 plt.savefig('images/nullcount.png')
                 plt.show()
@@ -288,8 +288,25 @@ def corr_heatmap(df):
     # plt.savefig("images/dfcorr.png")
     plt.show()
 
+def pivot_data(df, *beverages):
+    bev_list = ['wine', 'beer', 'vodka', 'champagne', 'brandy']
+    bevs = list(beverages)
+    if len(bevs) == 1:
+        if bevs[0] in bev_list:
+            df_pivot = df.pivot(index='region', columns='year', values=bevs[0]).reset_index()
+            df_pivot.columns.name = None
+        else:
+            raise Exception("{} is not found in list of beverages.".format(bevs[0]))
+    elif len(bevs) > 1:
+        bevs_n = all(bev in bev_list for bev in bevs)
+        if bevs_n:
+            df_pivot = df.pivot(index='region', columns='year', values=bevs).reset_index()
+            df_pivot.columns.name = None
+        else:
+            raise Exception("{} are not found in list of beverages.".format(bevs))
+    return df_pivot
 
-def preprocess_data(df):
+def preprocess_data(df, *beverages):
     """
 
     Parameters
@@ -303,28 +320,17 @@ def preprocess_data(df):
     """
     # instantiate MinMaxScaler
     scaler = MinMaxScaler(feature_range = (0, 1))
-        
-    # aggregate data by region
-    df_grp = df.groupby('region', as_index = False)[['wine', 'beer', 'vodka', 'champagne', 'brandy']].mean()
 
-    # create dataframe of transformed features
-    df_grp[['wine', 'beer', 'vodka', 'champagne', 'brandy']] = scaler.fit_transform(df_grp[['wine', 'beer', 'vodka', 'champagne', 'brandy']])
-    
-    # extract numerical data
-    df_nums = df_grp[['wine', 'beer', 'vodka', 'champagne', 'brandy']]
-
-    # extract numerical columns names
-    df_num_cols = df_nums.columns.tolist()
-    
-    # extract all columns
-    cols_of_df = df.columns.tolist()
+    df_pivot_bev = pivot_data(df, *beverages)
+    df_nums = df_pivot_bev.iloc[:, 1:]
+    df_scaled = scaler.fit_transform(df_nums)
 
     # compute the cosine similarity
-    cos_sim = cosine_similarity(df_nums, df_nums)
+    cos_sim = cosine_similarity(df_scaled, df_scaled)
     
-    return df_grp, cols_of_df, df_nums, df_num_cols, cos_sim
+    return df_pivot_bev, cos_sim
 
-def recommend_regions(df_grp, region, n, cos_sim):
+def recommend_regions(df, region, *beverages, n = 10):
     """
 
     Parameters
@@ -343,7 +349,8 @@ def recommend_regions(df_grp, region, n, cos_sim):
 
     """
 
-    indices = pd.Series(df_grp.index, index = df_grp['region'])
+    df_pivot_bev, cos_sim = preprocess_data(df, *beverages)
+    indices = pd.Series(df_pivot_bev.index, index = df_pivot_bev['region'])
     indices = indices.drop_duplicates()
     # get index corresponding to region
     idx = indices[region]
@@ -356,7 +363,7 @@ def recommend_regions(df_grp, region, n, cos_sim):
     # region indices
     region_indices = [i[0] for i in sig_scores]
     # get n most similar regions
-    top_n = df_grp['region'].iloc[region_indices]
+    top_n = df_pivot_bev['region'].iloc[region_indices]
     
     return top_n
 
