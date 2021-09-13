@@ -190,7 +190,7 @@ def plot_timeseries(df_melt, **kwargs):
         df_plot = df_melt.loc[df_melt['region'] == region]    
         fig, ax = plt.subplots()
         fig.set_size_inches(15, 10)
-        sns.set_context('poster', font_scale = 0.8, rc = {'grid.linewidth': 0.5, "font.size":20,"axes.titlesize":30,"axes.labelsize":20})
+        sns.set_context('poster', font_scale = 0.8, rc = {'grid.linewidth': 0.5, "font.size":20,"axes.titlesize":20,"axes.labelsize":20})
         sns.lineplot(data = df_plot, x = 'year', y = 'Sales per Capita', hue = 'beverages',\
                         style = 'beverages', markers = True)
         plt.title("Time Series of Mean Sales per Capita of all Beverages in {}".format(region))
