@@ -179,7 +179,7 @@ def plot_timeseries(df_melt, **kwargs):
     if region == 'all regions' and beverage == 'all beverages':
         fig, ax = plt.subplots()
         fig.set_size_inches(15, 10)
-        sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5, "font.size":30,"axes.titlesize":30,"axes.labelsize":30})
+        sns.set_context('poster', font_scale = 0.8, rc = {'grid.linewidth': 0.5, "font.size":20,"axes.titlesize":20,"axes.labelsize":20})
         sns.lineplot(data = df_melt, x = 'year', y = 'Sales per Capita', hue = 'beverages',\
                      style = 'beverages', markers = True)
         plt.title("Time Series of Mean Sales per Capita for all beverages")
@@ -190,7 +190,7 @@ def plot_timeseries(df_melt, **kwargs):
         df_plot = df_melt.loc[df_melt['region'] == region]    
         fig, ax = plt.subplots()
         fig.set_size_inches(15, 10)
-        sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5, "font.size":30,"axes.titlesize":30,"axes.labelsize":30})
+        sns.set_context('poster', font_scale = 0.8, rc = {'grid.linewidth': 0.5, "font.size":20,"axes.titlesize":30,"axes.labelsize":20})
         sns.lineplot(data = df_plot, x = 'year', y = 'Sales per Capita', hue = 'beverages',\
                         style = 'beverages', markers = True)
         plt.title("Time Series of Mean Sales per Capita of all Beverages in {}".format(region))
@@ -201,7 +201,7 @@ def plot_timeseries(df_melt, **kwargs):
         df_plot = df_melt.loc[df_melt['beverages'] == beverage]    
         fig, ax = plt.subplots()
         fig.set_size_inches(15, 10)
-        sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5, "font.size":30,"axes.titlesize":30,"axes.labelsize":30})
+        sns.set_context('poster', font_scale = 0.8, rc = {'grid.linewidth': 0.5, "font.size":20,"axes.titlesize":20,"axes.labelsize":20})
         sns.lineplot(data = df_plot, x = 'year', y = 'Sales per Capita', hue = 'beverages',\
                         style = 'beverages', markers = False)
         plt.title("Time Series of Mean Sales per Capita of {} in all regions".format(beverage))
@@ -212,7 +212,7 @@ def plot_timeseries(df_melt, **kwargs):
         df_plot = df_melt.loc[(df_melt['region'] == region) | (df_melt['beverages'] == beverage)]    
         fig, ax = plt.subplots()
         fig.set_size_inches(15, 10)
-        sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5, "font.size":30,"axes.titlesize":30,"axes.labelsize":30})
+        sns.set_context('poster', font_scale = 0.8, rc = {'grid.linewidth': 0.5, "font.size":20,"axes.titlesize":20,"axes.labelsize":20})
         sns.lineplot(data = df_plot, x = 'year', y = 'Sales per Capita', hue = 'beverages',\
                         style = 'beverages', markers = False)
         plt.title("Time Series of Mean Sales per Capita of {} in {}".format(beverage, region))
@@ -240,7 +240,7 @@ def cat_plots(df_melt, **kwargs):
     if plot_type == 'boxplot':
         fig, ax = plt.subplots()
         fig.set_size_inches(15, 10)
-        sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5, "font.size":30,"axes.titlesize":30,"axes.labelsize":30})
+        sns.set_context('poster', font_scale = 0.8, rc = {'grid.linewidth': 0.5, "font.size":20,"axes.titlesize":20,"axes.labelsize":20})
         sns.boxplot(x = 'Sales per Capita', y = 'beverages', data = df_melt)
         sns.despine(offset = 20, trim = True)
         plt.title('Distribution of Mean Sales per Capita by Beverage')
@@ -253,7 +253,7 @@ def cat_plots(df_melt, **kwargs):
         top_n = sort_df.iloc[:n, :]
         fig, ax = plt.subplots()
         fig.set_size_inches(15, 10)
-        sns.set_context('poster', font_scale = 0.5, rc = {'grid.linewidth': 0.5, "font.size":30,"axes.titlesize":30,"axes.labelsize":30})
+        sns.set_context('poster', font_scale = 0.8, rc = {'grid.linewidth': 0.5, "font.size":20,"axes.titlesize":20,"axes.labelsize":20})
         sns.barplot(x = 'Sales per Capita', y = 'region', data = top_n)
         sns.despine(offset = 10, trim = True)
         plt.title('Top {} Regions by Mean Sales per Capita of {}'.format(n, beverage))
