@@ -1,6 +1,6 @@
 # Alcohol Consumption in Russia
 
-![Alcoholic Beverages in Russia](images\drinks.png)
+![Alcoholic Beverages in Russia](Alcohol-Consumption-in-Russia/images/drinks.png)
 
 Source: [The Russian alcohol market: a heady cocktail](http://www.food-exhibitions.com/Market-Insights/Russia/The-Russian-alcohol-market)
 
@@ -10,7 +10,7 @@ This project will analyze data on alcoholic sales in Russia and develop a recomm
 
 A fictitious company based in Russia owns a chain of stores that sell a variety of alcohol. A recent wine promotion in Saint Petersburg has incentivized the company to run the same across other regions. Due to cost considerations, management has decided to limit the promotion to only ten regions with similar buying habits to Saint Peterburg with the expectation of similar success in sales.
 
-![Regions in Russia](images\regions.png)
+![Regions in Russia](./images/regions.png)
 
 Source: [Outline of Russia](https://en.wikipedia.org/wiki/Outline_of_Russia)
 
